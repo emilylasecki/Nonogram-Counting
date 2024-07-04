@@ -14,6 +14,12 @@ import itertools
 def union_size(size, c):
     return c**size
 
+    # if c is even, for all evens add all odds subtract
+    # if c is odd, for all evens subtract and all odds add
+    # if statement with conditional loop inside
+    # need itertools to calculate binomial coefiicents for each iteration
+    # a tomorrow problem
+
 #asks the user for rows, column, and number of colors.
 def main():
     print("hello world")
