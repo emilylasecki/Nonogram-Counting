@@ -10,28 +10,40 @@
 
 import itertools
 import math
+import sys
 
-#calculates boards. need to implement PIE
-def union_size(size, c):
+j=2
+i=2
+total=0
+
+def union_size(size, c, i, total):
     max = c**size
-    i =2
-    j=1
-    total =0
+   # global total
+   # global i
+    global j
+    # base case
+    if (c==i):
+        return int(c**size)
     # controls the "add every other" case
     while i <=c:
         if i%2 != 0: 
-            # FIXME ((i**size)) needs to be a recursive call, otherwise overcounting
-            total = total + ((i**size) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
-            print("adding")
-            print ((i**size) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
+            # FIXME union_size not working as intended
             i = i+1
             j= j+1
+            next_val = union_size(size, c, i, total)
+            total = total + (next_val * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
+            sys.stdout.write("adding: ")
+            print ((union_size(size, c, i, total)) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
+            continue
         if i%2 == 0:
-            total = total - ((i**size) * ((math.factorial(c))/(math.factorial(j) * (math.factorial(c-j)))))
-            print("subtracting")
-            print ((i**size) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
             i = i+1
-            j=j+1
+            j= j+1
+            next_val = union_size(size, c, i, total)
+            total = total - (next_val * (math.factorial(c)/(math.factorial(j) * (math.factorial(c-j)))))
+            sys.stdout.write("subtracting: ")
+            print ((union_size(size, c, i, total)) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
+            continue
+
     # need to add or subtract 1 but not in the base case where c=2
     if (i==c) and (c!=2):
         if c%2 != 0:
@@ -39,14 +51,14 @@ def union_size(size, c):
         if c%2 ==0:
             total = total +1
 
+    if (i==c):
+        result = max - total
+        sys.stdout.write("max: ")
+        print(max)
+        sys.stdout.write("total to subtract: ")
+        print(total)
 
-    result = max + total
-    print("max:")
-    print(max)
-    print("total to subtract:")
-    print(total)
-
-    return result
+        return int(result)
            
 
 #asks the user for rows, column, and number of colors.
@@ -56,9 +68,10 @@ def main():
     m = int(input('how many columns does your grid have? \n'))
     c = int(input('how many colors would you like to test? \n'))
    # c += 1
+   # i=1
     print(c)
     size = n * m
-    print(union_size(size, c))
+    print(union_size(size, c, 0, 0))
 
 #to run main
 if __name__ == "__main__":
