@@ -12,22 +12,25 @@ import itertools
 import math
 import sys
 
-j=1
+j=0
 i=2
 total=0
 
 def union_size(size, c):
     max = c**size
+    sys.stdout.write("max is: ")
+    print(max)
     global total
     global i
     global j
+    #j=c
     # base case
-    if (c==i):
-        sys.stdout.write("base case activated and it is: ")
-        print(c**size)
-        return c**size
     # controls the "add every other" case
     while i <=c:
+        if (c==i):
+            sys.stdout.write("base case activated and it is: ")
+            print(c**size)
+            #return c**size
         if i%2 != 0: 
             # FIXME ((i**size)) needs to be a recursive call, otherwise overcounting
             # ^-- input but not opperating as intended
@@ -58,6 +61,7 @@ def union_size(size, c):
     print(max)
     sys.stdout.write("total to subtract: ")
     print(total)
+    print(result)
 
     return result
            
@@ -68,8 +72,7 @@ def main():
     n = int(input('how many rows does your grid have?\n'))
     m = int(input('how many columns does your grid have? \n'))
     c = int(input('how many colors would you like to test? \n'))
-   # c += 1
-    i=1
+    # consider adding 1 to colors to make more sense with logic
     print(c)
     size = n * m
     print(union_size(size, c))
