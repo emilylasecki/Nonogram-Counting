@@ -10,61 +10,50 @@
 
 import itertools
 import math
-import sys
 
-j=0
-i=2
 total=0
-
-def union_size(size, c):
+def union_size(size, c, i):
     max = c**size
-    sys.stdout.write("max is: ")
-    print(max)
+    j=1
     global total
-    global i
-    global j
-    #j=c
-    # base case
     # controls the "add every other" case
-    while i <=c:
-        if (c==i):
-            sys.stdout.write("base case activated and it is: ")
-            print(c**size)
-            #return c**size
-        if i%2 != 0: 
-            # FIXME ((i**size)) needs to be a recursive call, otherwise overcounting
-            # ^-- input but not opperating as intended
+    while (i <=c):
+        #base case
+        if (c==i):  #isn't base case when i == 2???
+            print("base case activated")  #need to include another method here, sometimes this is called when shouldn't
+            return c**size
+           # return calc_result(c**size, total) # placeholder, while loop should be the one to return
+        if (i%2 != 0): 
+            max_val = union_size(size, c, i+1)
+            total = total + (max_val * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j))))) #confirm this calcs correctly
+            print("adding")
+            print (max_val * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
+            print("current total")
+            print(total)
             i = i+1
             j= j+1
-            total = total + (union_size(size, j) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
-            sys.stdout.write("adding: ")
-            print ((i**size) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
-            continue
-        if i%2 == 0:
+        if (i%2 == 0):
+            max_val = union_size(size, c, i+1)
+            total = total - (max_val * ((math.factorial(c))/(math.factorial(j) * (math.factorial(c-j)))))
+            print("subtracting")
+            print (max_val * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
             i = i+1
-            j= j+1
-            total = total - ((union_size(size, j)) * ((math.factorial(c))/(math.factorial(j) * (math.factorial(c-j)))))
-            sys.stdout.write("subtracting: ")
-            print ((i**size) * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
-            continue
-        
+            j=j+1
     # need to add or subtract 1 but not in the base case where c=2
     if (i==c) and (c!=2):
-        if c%2 != 0:
+        if (c%2 != 0):
             total = total -1
-        if c%2 ==0:
+        if (c%2 ==0):
             total = total +1
+    return calc_result(c**size, total)
 
 
-    result = max - total
-    sys.stdout.write("max: ")
-    print(max)
-    sys.stdout.write("total to subtract: ")
-    print(total)
-    print(result)
-
+# need to have a seperate method handle the final calculations
+def calc_result(max, total):
+    print("recursion over, answer: ")
+    result= max +total
     return result
-           
+
 
 #asks the user for rows, column, and number of colors.
 def main():
@@ -72,11 +61,11 @@ def main():
     n = int(input('how many rows does your grid have?\n'))
     m = int(input('how many columns does your grid have? \n'))
     c = int(input('how many colors would you like to test? \n'))
-    # consider adding 1 to colors to make more sense with logic
+   # c += 1 add back at the end
+   # c += 1
     print(c)
     size = n * m
-    print(union_size(size, c))
-
+    print(union_size(size, c, 2))
 #to run main
 if __name__ == "__main__":
     main()
