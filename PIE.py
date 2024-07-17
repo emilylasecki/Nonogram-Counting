@@ -21,39 +21,45 @@ def union_size(size, c, i):
         #base case
         if (c==i):  #isn't base case when i == 2???
             print("base case activated")  #need to include another method here, sometimes this is called when shouldn't
-            return c**size
+            return c**size + total
            # return calc_result(c**size, total) # placeholder, while loop should be the one to return
         if (i%2 != 0): 
-            max_val = union_size(size, c, i+1)
-            total = total + (max_val * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j))))) #confirm this calcs correctly
+            max_val = union_size(size, c, i+1) #recursive element
+            total = total + (max_val * factorial_calc(c, j))
             print("adding")
-            print (max_val * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
-            print("current total")
-            print(total)
+            print (max_val * factorial_calc(c, j))
+           # print("current total")
+           # print(total)
             i = i+1
             j= j+1
+            continue
         if (i%2 == 0):
             max_val = union_size(size, c, i+1)
-            total = total - (max_val * ((math.factorial(c))/(math.factorial(j) * (math.factorial(c-j)))))
+            total = total - max_val * factorial_calc(c, j)
             print("subtracting")
-            print (max_val * (math.factorial(c)/(math.factorial(j)*(math.factorial(c-j)))))
+            print (max_val * factorial_calc(c, j))
             i = i+1
             j=j+1
-    # need to add or subtract 1 but not in the base case where c=2
+    # need to add or subtract 1 but not in the base case where c=2 -LIES we could 15 valid boards, blank board is not valid
     if (i==c) and (c!=2):
         if (c%2 != 0):
             total = total -1
+            print("subtracting 1")
         if (c%2 ==0):
             total = total +1
-    return calc_result(c**size, total)
+            print("adding 1")
+ #   return calc_result(c**size, total)
 
 
-# need to have a seperate method handle the final calculations
+# need to have a seperate method handle the final calculations -MORE LIES!!! its better to include in base case
 def calc_result(max, total):
     print("recursion over, answer: ")
     result= max +total
     return result
 
+#calculate the binomial coefficents to determine how many times to multiply a certain value FIXME confirm calcs correct value
+def factorial_calc(maxc, currentj):
+    return ((math.factorial(maxc))/(math.factorial(currentj) * (math.factorial(maxc-currentj))))
 
 #asks the user for rows, column, and number of colors.
 def main():
@@ -66,6 +72,8 @@ def main():
     print(c)
     size = n * m
     print(union_size(size, c, 2))
+
+
 #to run main
 if __name__ == "__main__":
     main()
