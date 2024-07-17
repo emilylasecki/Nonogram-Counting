@@ -24,3 +24,7 @@ I also realized that some of my numbers may get to large to be stored as integer
 # 7/16/2024
 
 I need to come back with a fresh mind and rethink the layout of the program. For the recursion, is the base case c==i? I think it should be i==2, but based on how I set up the program I need to start with i=c and i-- rather than i=2 and i++. I've been messing with the code for about 2 hours but I'll get nowhere if I don't even know what the plan of attack is. I'll do some thinking on the side and come back to this.
+
+# 7/17/2024
+
+I had an epiphany last night and realized my error is with how I count the blank board. There are 16 ways to fill a 2x2 board with each square being blank or black, 2^4. But this also counts the board where none of the squares are colored, which we don't count as a valid board. In all other cases, take 3^4, each board must contain 2 different colors. So by defintion, the blank board doesn't hit the requirements for the base case. How I play with this idea is what is causing the error to be too large. I also noticed a few more bugs, but I can't really test and work those out until I fix this issue. I need to rework the base case and confirm that the binomial coefficents are calculated correctly. After that the bulk of the program should be done, and I just need to format how I want exports to the terminal in order to plan for integration with Excel. As always, notes are in the files with the corresponding date. I made distint notes of where I went wrong last time.
