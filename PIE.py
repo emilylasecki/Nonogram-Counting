@@ -12,53 +12,58 @@ import itertools
 import math
 
 total=0
-def union_size(size, c, i):
+def union_size(size, c):
     max = c**size
     j=1
+    i=2
+    k=c-1
     global total
     # controls the "add every other" case
-    while (i <=c):
+    while (i <c):
         #base case
-        if (c==i):  #isn't base case when i == 2???
-            print("base case activated")  #need to include another method here, sometimes this is called when shouldn't
-            return c**size + total
-           # return calc_result(c**size, total) # placeholder, while loop should be the one to return
         if (i%2 != 0): 
-            max_val = union_size(size, c, i+1) #recursive element
-            total = total + (max_val * factorial_calc(c, j))
+            total = total + ((c-j)**size * factorial_calc(k, (c-i)))
+            print("c-j is")
+            print(c-j)
             print("adding")
-            print (max_val * factorial_calc(c, j))
-           # print("current total")
-           # print(total)
+            print ((c-i)**size * factorial_calc(k, (c-i)))
             i = i+1
             j= j+1
             continue
         if (i%2 == 0):
-            max_val = union_size(size, c, i+1)
-            total = total - max_val * factorial_calc(c, j)
+            total = total - (c-j)**size * factorial_calc(k, (c-i))
+            print("c-j is")
+            print(c-j)
             print("subtracting")
-            print (max_val * factorial_calc(c, j))
+            print ((c-i)**size * factorial_calc(k, (c-i)))
             i = i+1
             j=j+1
+            continue
     # need to add or subtract 1 but not in the base case where c=2 -LIES we could 15 valid boards, blank board is not valid
-    if (i==c) and (c!=2):
-        if (c%2 != 0):
-            total = total -1
-            print("subtracting 1")
-        if (c%2 ==0):
-            total = total +1
-            print("adding 1")
- #   return calc_result(c**size, total)
+ #   if (i==c) and (c!=2):
+  #      if (c%2 != 0):
+   #         total = total -1
+   #         print("subtracting 1")
+   #     if (c%2 ==0):
+   #         total = total +1
+    #        print("adding 1")
+    return calc_result(c**size, total)
 
 
 # need to have a seperate method handle the final calculations -MORE LIES!!! its better to include in base case
 def calc_result(max, total):
-    print("recursion over, answer: ")
-    result= max +total
+    print("current max")
+    print(max)
+    print("current total")
+    print(total)
+    print("calculating...")
+    result= max + total
     return result
 
 #calculate the binomial coefficents to determine how many times to multiply a certain value FIXME confirm calcs correct value
 def factorial_calc(maxc, currentj):
+    print("factorial is")
+    print(((math.factorial(maxc))/(math.factorial(currentj) * (math.factorial(maxc-currentj)))))
     return ((math.factorial(maxc))/(math.factorial(currentj) * (math.factorial(maxc-currentj))))
 
 #asks the user for rows, column, and number of colors.
@@ -71,7 +76,7 @@ def main():
    # c += 1
     print(c)
     size = n * m
-    print(union_size(size, c, 2))
+    print(union_size(size, c))
 
 
 #to run main
