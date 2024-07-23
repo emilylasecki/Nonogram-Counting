@@ -3,14 +3,15 @@
 
 #goals of phase 1:
 #1 - configure with github for version control - done!
-#2 - determine nessasary code and implement - debug stage
-#3 - configure with excel for data extraction - 
+#2 - determine nessasary code and implement - debugging stage
+#3 - configure with excel for data extraction - planning stage
 
 #phase 2 and beyond - create game to test uniqueness and solvability questions
 
-import math
 
-total=0
+import math
+total=0 #global
+
 # method to do bulk calculations
 def union_size(size, c):
     max = c**size
@@ -38,15 +39,15 @@ def union_size(size, c):
             total = total -1
     return calc_result(c**size, total)
 
-
 # seperate method to handle final calculations. Possible to build this into the while loops too
 def calc_result(max, total):
     result= max + total
     return result
 
-#calculate the binomial coefficents to determine how many times to multiply a certain value
+#calculate the binomial coefficents to determine how many times to multiply a certain value 
 def factorial_calc(maxc, currentj):
-    return ((math.factorial(maxc))/(math.factorial(currentj) * (math.factorial(maxc-currentj))))
+    y= math.comb(maxc, currentj)
+    return y
 
 #asks the user for rows, column, and number of colors.
 def main():
@@ -56,7 +57,6 @@ def main():
     c = int(input('how many colors would you like to test? \n'))
     size = n * m
     print(union_size(size, c))
-
 
 #to run main
 if __name__ == "__main__":
