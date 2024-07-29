@@ -65,8 +65,22 @@ def main():
     c= c+1  #1 color needs to run in program as 2
     size = n * m
     print(calc_percentage(size, c))
+   # PIE_iterator(size)
     print(union_size(size, c))
+
+#different method of iteration for better use for data extraction - not working??
+#iterate k through union_size so instead of running 20x20 400 times we only need to once
+def PIE_iterator(size):
+    k=2
+    print(size)
+    print(k)
+    while (k<=size):
+        print(union_size(size, k))
+        k= k +1
+        continue
+
 
 #to run main
 if __name__ == "__main__":
     main()
+

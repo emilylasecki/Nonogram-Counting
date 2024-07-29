@@ -9,40 +9,5 @@ This program counts all possible grids of each size with each color, ignoring un
 
 I plan on exporting this data into an Excel sheet to be referenced easier and turn it into a graph. Afterwards, I plan on creating a new repository where I create a Picross game from the ground up. I will randomly generate codes for certain games and test multiple size grids with multiple colors to find on average how many boards are unique with each specification. I then will compare the ratio of possible boards with unique ones to establish how this trend changes with the grids being scaled up and/or number of colors being altered.
 
-I am using GitHub to track my progress and log issues, and using the README as a log of issues as they arise and how I solve them. I will move this text to a separate file once the project is completed for a more polished look, but for now I think it's interesting to make clear my thoughts as I make progress with this project.
+I am using GitHub to track my progress and log issues. README.md serves as a general background of the project with conclusions from this project. For a more detailed log of progress read PROGRESSLOG.md
 
-# 7/2/2024 and 7/3/2024
-
-Today wrote the background of the README file, configured this project with GitHub, and wrote the basic skeleton of the program. More detailed notes on specific aspects can be found in the commit of the corresponding date.
-
-# 7/15/2024
-
-Today I added the main logic in for PIE, with alternating between adding and subtracting elements based on the modulo of the number of colors currently being tested. Scattered print statements to test the correct output of the code still remain. The binomial coefficents work as intended, but I realize I need to add recursion to avoid repeat cases. I noted in the code where this should happen. I'm going to brainstorm the best way to go about this, for now I'm unsure if I should rewrite the bulk of the code to make it more compatable with recursion, or if it's possible to keep this the same.
-
-I also realized that some of my numbers may get to large to be stored as integers. This would be fine, but I still need to do calculations with these. I believe Python can handle this with long integers, but yet again with recursion my calls might take too long. As of now I only plan on calculating for 20x20 boards as a maximum, but 2^400 is too large for my calculator to handle, and 2^325 is already a 98 digit number... I am just now realizing a 20x20 board might even not be feasible. I suppose there's a reason no one else has done this! I think I'll be okay for the meantime; I'll finish the code, get the data I can, and I can work on another solution if I deem it necessary. 
-
-# 7/16/2024
-
-I need to come back with a fresh mind and rethink the layout of the program. For the recursion, is the base case c==i? I think it should be i==2, but based on how I set up the program I need to start with i=c and i-- rather than i=2 and i++. I've been messing with the code for about 2 hours but I'll get nowhere if I don't even know what the plan of attack is. I'll do some thinking on the side and come back to this.
-
-# 7/17/2024
-
-I had an epiphany last night and realized my error is with how I count the blank board. There are 16 ways to fill a 2x2 board with each square being blank or black, 2^4. But this also counts the board where none of the squares are colored, which we don't count as a valid board. In all other cases, take 3^4, each board must contain 2 different colors. So by defintion, the blank board doesn't hit the requirements for the base case. How I play with this idea is what is causing the error to be too large. I also noticed a few more bugs, but I can't really test and work those out until I fix this issue. I need to rework the base case and confirm that the binomial coefficents are calculated correctly. After that the bulk of the program should be done, and I just need to format how I want exports to the terminal in order to plan for integration with Excel. As always, notes are in the files with the corresponding date. I made distinct notes of where I went wrong last time.
-
-# 7/21/2024
-
-Major setbacks on Picross PIE. First of all, I realized the algorithm I was trying to implement incorrectly counts my grids. Oops! Lesson learned, next time triple check that you fully understand what you're trying to do before you do it. Secondly, IT issues. Out of an abundance of caution I'm not turning my laptop on to avoid issues with the Microsoft/Crowdstrike outage. This means I either code on my phone or don't at all. Unfortunately for me my WiFi decided to die, so I also have the hurdle of working off of spotty service. Hooray! I think I'm going to spend some time planning for other projects, although I do really want to complete this one. No updates to the actual code today. I will try to get back on track soon.
-
-# 7/22/2024
-
-My laptop is fine and the internet is back! I implemented the correct code this time and the 2x2 and 3x3 code is fully functional. In theory, any calculation above which the number of colors exceeds the number of tiles, the number of possbile grids is zero. This does not reflect correctly in my code. 2x2 with 71 colors gives an answer that is not zero. It also appears the 4x4 case might not be fully functional, because 4x4 with 25 colors should be zero, but I get a different answer. I confirmed the 10x10 2 and 3 color grids respond as intended. Somewhere the shear scale of how long the numbers are is bogging down the correct output. I'm not sure there is an answer to this question. I'm going to sift around the Python documentation to see if there's an easy workaround. I read that Python was supposed to automatically allocate to the correct data type, so my big data should be stored in long. Do I need to use a special operators to handle longs? Probably yes, but I would have expected an error rather than just the wrong output...
-
-In the meantime, I did a little research how to export my data to Excel and it doesn't look that bad! I'm not sure I want to be doing that until I'm confident my code produces the correct output, but I might start to tinker with it anyway if I have the chance. If I can't make ground with either of those goals, I have another project in mind I might start experimenting with. As always, the commit to the corresponding date has the updated files.
-
-# 7/23/2024
-
-I resolved two issues today. First, the factorial_calc method was returning a float and Python floats cannot be arbitrarily large. I corrected this and pushed a commit, but calculations with more that 58 colors produced an error. I poked around how to correct this, and realized that I can just use math.comb for the binomial coefficent, which doesn't have this error. a 20x20 grid with 402 colors correctly results in 0 possible grids. 50x50 with 2502 colors also correctly calculates to 0 possible grids. Even 100x100 with 10002 colors correctly returns 0 possible grids! We run into issues with trying to print more than 4300 digits, like in the case of 50x50 with 1000 colors, but as of now I don't plan on counting this high. I think 20x20 should suffice, but I'll increase the limit if necessary.
-
-I now need to get the data into Excel and consider how I want to do calculations. I believe I want to take the largest output for each size and label it 100%, and then graph all the colors on one grid to see what each curve looks like, and after see what percentage out of the whole number of iterations does the curve turn downwards. I'm not sure if Excel has something like this built in, but I'll do some research on the best way to go about this before I start to implement it. I'm also slightly concerned about Excel limits on how large of numbers can be stored. I think after all the calculations I can convert the answer to scientific notation with no major accuracy concerns. 
-
-I may make minor changes to PIE.py for compatability with Excel, but I don't believe there will be many more changes to that file. FactorialTest.py was just for experimenting with the binomial coefficent calculation and will be removed shortly. I plan on adding a new file for Excel outputs and iterating that process. Current progress can be viewed in the commit with today's date.
