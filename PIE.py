@@ -49,13 +49,22 @@ def factorial_calc(maxc, currentj):
     y= math.comb(maxc, currentj)
     return y
 
+#determine the percentage of possible colors being tested. Final viable color is 100%
+def calc_percentage(size, c):
+    c= c-1
+    return (c/size) *100
+
+
+
 #asks the user for rows, column, and number of colors.
 def main():
-    print("hello world")
+    # print("hello world")
     n = int(input('how many rows does your grid have?\n'))
     m = int(input('how many columns does your grid have? \n'))
     c = int(input('how many colors would you like to test? \n'))
+    c= c+1  #1 color needs to run in program as 2
     size = n * m
+    print(calc_percentage(size, c))
     print(union_size(size, c))
 
 #to run main
