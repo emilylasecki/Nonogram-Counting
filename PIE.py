@@ -3,14 +3,18 @@
 
 #goals of phase 1:
 #1 - configure with github for version control - done!
-#2 - determine nessasary code and implement - debugging stage
-#3 - configure with excel for data extraction - planning stage
+#2 - determine nessasary code and implement - done!
+#3 - configure with excel for data extraction - current stage
 
 #phase 2 and beyond - create game to test uniqueness and solvability questions
 
+ListSize =[]
+ListColor=[]
+ListPossibleBoards=[]
+ListX=[]
+ListY=[]
 
 import math
-total=0 #global
 
 # method to do bulk calculations
 def union_size(size, c):
@@ -18,7 +22,7 @@ def union_size(size, c):
     j=1
     i=2
     k=c-1
-    global total
+    total=0
     # controls the "add every other" case
     while (i <c):
         if (i%2 != 0): 
@@ -54,8 +58,6 @@ def calc_percentage(size, c):
     c= c-1
     return (c/size) *100
 
-
-
 #asks the user for rows, column, and number of colors.
 def main():
     # print("hello world")
@@ -64,21 +66,30 @@ def main():
     c = int(input('how many colors would you like to test? \n'))
     c= c+1  #1 color needs to run in program as 2
     size = n * m
-    print(calc_percentage(size, c))
-   # PIE_iterator(size)
-    print(union_size(size, c))
 
-#different method of iteration for better use for data extraction - not working??
+  #  print(calc_percentage(size, c))
+  #  print(union_size(size, c))
+    print(PIE_iterator(size, 2))  #currently prints max
+
+#different method of iteration for better use for data extraction
 #iterate k through union_size so instead of running 20x20 400 times we only need to once
-def PIE_iterator(size):
-    k=2
-    print(size)
-    print(k)
-    while (k<=size):
-        print(union_size(size, k))
-        k= k +1
-        continue
+def PIE_iterator(size, c):
+    max=0
+    while c<=size+1:
+        print(c-1)
+        f =(union_size(size, c))
+        print(f)
+        c= c +1
+        if f>max: 
+            max=f
+    return max #need to calc Y based on this return. new method probably necessary.
 
+def add_to_lists(size, c, possibleboards):
+    ListSize.apend(size)
+    ListColor.apend(c)
+    ListPossibleBoards.apend(possibleboards)
+    ListX.apend(calc_percentage(size, c))
+    ListY.apend() #possibleboards/max *100
 
 #to run main
 if __name__ == "__main__":
