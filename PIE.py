@@ -15,6 +15,7 @@ ListX=[]
 ListY=[]
 
 import math
+import pandas as pd
 
 # method to do bulk calculations
 def union_size(size, c):
@@ -60,11 +61,10 @@ def calc_percentage(size, c):
 
 #asks the user for rows, column, and number of colors.
 def main():
-    # print("hello world")
     n = int(input('how many rows does your grid have?\n'))
     m = int(input('how many columns does your grid have? \n'))
     c = int(input('how many colors would you like to test? \n'))
-    c= c+1  #1 color needs to run in program as 2
+    c= c+1  #1 color needs to run in program as 2, 2 as 3, etc.
     size = n * m
 
   #  print(calc_percentage(size, c))
@@ -88,16 +88,18 @@ def PIE_iterator(size, c):
     while c<=size+1:  #now that we have the max, we can calculate ListY
        # add_to_lists(size,c,f)
         f = (union_size(size,c))
-        ListY.append((f/max) *100)
+        g = (f/max)*100
+        round(g) #might delete round
+        ListY.append(g)
         c=c+1
-
-    return max #need to calc Y based on this return. new method probably necessary.
+    PANDAS(ListSize, ListColor, ListPossibleBoards, ListX, ListY) #currently has error
+    return max
 
 def add_to_lists(size, c, possibleboards):
     ListSize.append(size)
     ListColor.append(c)
     ListPossibleBoards.append(possibleboards)
-    ListX.append(calc_percentage(size, c))
+    ListX.append(round(calc_percentage(size, c))) #also might delete round
 
 def test_lists():
     for x in range(len(ListSize)):
@@ -110,6 +112,13 @@ def test_lists():
         print(ListX[x])
     for x in range(len(ListY)):
         print(ListY[x])
+
+def PANDAS(Size, Colors, PossibleBoards, ColorPercent, BoardPercent):
+    dict = {'Size': Size, 'Colors': Colors, 'PossibleBoards': PossibleBoards, 'ColorPercent': ColorPercent, 'BoardPercent': BoardPercent }
+
+    df = pd.DataFrame(dict)
+
+    df.to_excel("PIEoutput15.xlsx")
 
 #to run main
 if __name__ == "__main__":

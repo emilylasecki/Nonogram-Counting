@@ -2,9 +2,14 @@
 
 #will need to import lists for this file
 
-import pandas as pd
-import numpy as np
+#jk doing this step in PIE.py too
 
-df = pd.DataFrame(columns=['Size', 'Colors', 'PossibleBoards', 'ColorPercent', 'BoardPercent']
-                  
-)
+import pandas as pd
+
+
+def PANDAS(Size, Colors, PossibleBoards, ColorPercent, BoardPercent):
+    dict = {'Size': Size, 'Colors': Colors, 'PossibleBoards': PossibleBoards, 'ColorPercent': ColorPercent, 'BoardPercent': BoardPercent }
+
+    df = pd.DataFrame(dict)
+
+    df.to_excel("PIEoutput.xlsx")
