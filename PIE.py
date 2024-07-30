@@ -70,26 +70,46 @@ def main():
   #  print(calc_percentage(size, c))
   #  print(union_size(size, c))
     print(PIE_iterator(size, 2))  #currently prints max
+    test_lists()
 
 #different method of iteration for better use for data extraction
 #iterate k through union_size so instead of running 20x20 400 times we only need to once
 def PIE_iterator(size, c):
     max=0
     while c<=size+1:
-        print(c-1)
+      #  print(c-1)
         f =(union_size(size, c))
-        print(f)
+     #   print(f)
+        add_to_lists(size,c,f)
         c= c +1
         if f>max: 
             max=f
+    c=2
+    while c<=size+1:  #now that we have the max, we can calculate ListY
+       # add_to_lists(size,c,f)
+        f = (union_size(size,c))
+        ListY.append((f/max) *100)
+        c=c+1
+
     return max #need to calc Y based on this return. new method probably necessary.
 
 def add_to_lists(size, c, possibleboards):
-    ListSize.apend(size)
-    ListColor.apend(c)
-    ListPossibleBoards.apend(possibleboards)
-    ListX.apend(calc_percentage(size, c))
-    ListY.apend() #possibleboards/max *100
+    ListSize.append(size)
+    ListColor.append(c)
+    ListPossibleBoards.append(possibleboards)
+    ListX.append(calc_percentage(size, c))
+
+def test_lists():
+    for x in range(len(ListSize)):
+        print(ListSize[x])
+    for x in range(len(ListColor)):
+        print(ListColor[x])
+    for x in range(len(ListPossibleBoards)):
+        print(ListPossibleBoards[x])
+    for x in range(len(ListX)):
+        print(ListX[x])
+    for x in range(len(ListY)):
+        print(ListY[x])
 
 #to run main
 if __name__ == "__main__":
