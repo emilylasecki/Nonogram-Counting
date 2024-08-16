@@ -89,7 +89,7 @@ def PIE_iterator(size, c):
        # add_to_lists(size,c,f)
         f = (union_size(size,c))
         g = (f/max)*100
-        round(g) #might delete round
+        convertToScientificNotation(g) #might delete round
         ListY.append(g)
         c=c+1
     PANDAS(ListSize, ListColor, ListPossibleBoards, ListX, ListY) #currently has error
@@ -98,7 +98,7 @@ def PIE_iterator(size, c):
 def add_to_lists(size, c, possibleboards):
     ListSize.append(size)
     ListColor.append(c)
-    ListPossibleBoards.append(possibleboards)
+    ListPossibleBoards.append(convertToScientificNotation(possibleboards))
     ListX.append(round(calc_percentage(size, c))) #also might delete round
 
 def test_lists():
@@ -118,7 +118,14 @@ def PANDAS(Size, Colors, PossibleBoards, ColorPercent, BoardPercent):
 
     df = pd.DataFrame(dict)
 
-    df.to_excel("PIEoutput15.xlsx")
+    df.to_excel("PIEoutput.xlsx")
+
+#after all calculations, convert result to scientific notation
+#Note this does impact accuracy in final calc. how much so to be determined
+def convertToScientificNotation(num):
+    newNum = "{:e}".format(num)
+    return newNum
+
 
 #to run main
 if __name__ == "__main__":
