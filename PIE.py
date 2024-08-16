@@ -63,8 +63,8 @@ def calc_percentage(size, c):
 def main():
     n = int(input('how many rows does your grid have?\n'))
     m = int(input('how many columns does your grid have? \n'))
-    c = int(input('how many colors would you like to test? \n'))
-    c= c+1  #1 color needs to run in program as 2, 2 as 3, etc.
+  #  c = int(input('how many colors would you like to test? \n')) #Note this functionality was deleted
+  #  c= c+1  #1 color needs to run in program as 2, 2 as 3, etc.
     size = n * m
 
   #  print(calc_percentage(size, c))
@@ -89,8 +89,8 @@ def PIE_iterator(size, c):
        # add_to_lists(size,c,f)
         f = (union_size(size,c))
         g = (f/max)*100
-        convertToScientificNotation(g) #might delete round
-        ListY.append(g)
+        h= convertToScientificNotation(g) #might delete round
+        ListY.append(h)
         c=c+1
     PANDAS(ListSize, ListColor, ListPossibleBoards, ListX, ListY) #currently has error
     return max
@@ -98,7 +98,7 @@ def PIE_iterator(size, c):
 def add_to_lists(size, c, possibleboards):
     ListSize.append(size)
     ListColor.append(c)
-    ListPossibleBoards.append(convertToScientificNotation(possibleboards))
+    ListPossibleBoards.append(convertToScientificNotation(possibleboards))  #converttoScientific is giving an error now
     ListX.append(round(calc_percentage(size, c))) #also might delete round
 
 def test_lists():
