@@ -16,6 +16,7 @@ ListY=[]
 
 import math
 import pandas as pd
+import decimal
 
 # method to do bulk calculations
 def union_size(size, c):
@@ -69,7 +70,8 @@ def main():
 
   #  print(calc_percentage(size, c))
   #  print(union_size(size, c))
-    print(PIE_iterator(size, 2))  #currently prints max
+    calcAllBoards()
+   # print(PIE_iterator(size, 2))  #currently prints max
     test_lists()
 
 #different method of iteration for better use for data extraction
@@ -97,9 +99,9 @@ def PIE_iterator(size, c):
 
 def add_to_lists(size, c, possibleboards):
     ListSize.append(size)
-    ListColor.append(c)
-    ListPossibleBoards.append(convertToScientificNotation(possibleboards))  #converttoScientific is giving an error now
-    ListX.append(round(calc_percentage(size, c))) #also might delete round
+    ListColor.append(c-1)
+    ListPossibleBoards.append(convertToScientificNotation(possibleboards))
+    ListX.append(calc_percentage(size, c))
 
 def test_lists():
     for x in range(len(ListSize)):
@@ -123,8 +125,18 @@ def PANDAS(Size, Colors, PossibleBoards, ColorPercent, BoardPercent):
 #after all calculations, convert result to scientific notation
 #Note this does impact accuracy in final calc. how much so to be determined
 def convertToScientificNotation(num):
-    newNum = "{:e}".format(num)
-    return newNum
+    newNum = decimal.Decimal(num)
+    finalNum = format(newNum, '.6e')
+    
+    return finalNum
+
+#call PIE-iterator 20 times for all nxn boards from n=1 to n=20
+def calcAllBoards():
+    i=0
+    while (i<=20):
+        PIE_iterator(i*i, 2)
+        i= i+1
+        continue
 
 
 #to run main
