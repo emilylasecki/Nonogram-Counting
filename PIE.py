@@ -1,10 +1,10 @@
-#count the number of possible nonogram grids of multiple colors and variety of sizes
+#count the number of possible nonogram grids of nxn sizes for all possible numbers of colors
 #export calculations to an excel file for graphing and analyzing
 
 #goals of phase 1:
 #1 - configure with github for version control - done!
 #2 - determine nessasary code and implement - done!
-#3 - configure with excel for data extraction - current stage
+#3 - configure with excel for data extraction - done!
 
 #phase 2 and beyond - create game to test uniqueness and solvability questions
 
@@ -62,17 +62,8 @@ def calc_percentage(size, c):
 
 #asks the user for rows, column, and number of colors.
 def main():
-    n = int(input('how many rows does your grid have?\n'))
-    m = int(input('how many columns does your grid have? \n'))
-  #  c = int(input('how many colors would you like to test? \n')) #Note this functionality was deleted
-  #  c= c+1  #1 color needs to run in program as 2, 2 as 3, etc.
-    size = n * m
-
-  #  print(calc_percentage(size, c))
-  #  print(union_size(size, c))
+   
     calcAllBoards()
-   # print(PIE_iterator(size, 2))  #currently prints max
-    test_lists()
 
 #different method of iteration for better use for data extraction
 #iterate k through union_size so instead of running 20x20 400 times we only need to once
@@ -88,21 +79,22 @@ def PIE_iterator(size, c):
             max=f
     c=2
     while c<=size+1:  #now that we have the max, we can calculate ListY
-       # add_to_lists(size,c,f)
         f = (union_size(size,c))
         g = (f/max)*100
-        h= convertToScientificNotation(g) #might delete round
+        h= convertToScientificNotation(g)
         ListY.append(h)
         c=c+1
-    PANDAS(ListSize, ListColor, ListPossibleBoards, ListX, ListY) #currently has error
+    PANDAS(ListSize, ListColor, ListPossibleBoards, ListX, ListY)
     return max
 
+#add values onto lists so PANDAS can put lists in Excel
 def add_to_lists(size, c, possibleboards):
     ListSize.append(size)
     ListColor.append(c-1)
     ListPossibleBoards.append(convertToScientificNotation(possibleboards))
     ListX.append(calc_percentage(size, c))
 
+#test lists get data as intended
 def test_lists():
     for x in range(len(ListSize)):
         print(ListSize[x])
@@ -115,6 +107,7 @@ def test_lists():
     for x in range(len(ListY)):
         print(ListY[x])
 
+#use pandas to export data to excel
 def PANDAS(Size, Colors, PossibleBoards, ColorPercent, BoardPercent):
     dict = {'Size': Size, 'Colors': Colors, 'PossibleBoards': PossibleBoards, 'ColorPercent': ColorPercent, 'BoardPercent': BoardPercent }
 
@@ -123,7 +116,7 @@ def PANDAS(Size, Colors, PossibleBoards, ColorPercent, BoardPercent):
     df.to_excel("PIEoutput.xlsx")
 
 #after all calculations, convert result to scientific notation
-#Note this does impact accuracy in final calc. how much so to be determined
+#note this does impact accuracy
 def convertToScientificNotation(num):
     newNum = decimal.Decimal(num)
     finalNum = format(newNum, '.6e')
