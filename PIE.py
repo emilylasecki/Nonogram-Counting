@@ -1,13 +1,6 @@
 #count the number of possible nonogram grids of nxn sizes for all possible numbers of colors
 #export calculations to an excel file for graphing and analyzing
 
-#goals of phase 1:
-#1 - configure with github for version control - done!
-#2 - determine nessasary code and implement - done!
-#3 - configure with excel for data extraction - done!
-
-#phase 2 and beyond - create game to test uniqueness and solvability questions
-
 ListSize =[]
 ListColor=[]
 ListPossibleBoards=[]
@@ -45,7 +38,7 @@ def union_size(size, c):
             total = total -1
     return calc_result(c**size, total)
 
-# seperate method to handle final calculations. Possible to build this into the while loops too
+# seperate method to handle final calculations
 def calc_result(max, total):
     result= max + total
     return result
@@ -60,7 +53,7 @@ def calc_percentage(size, c):
     c= c-1
     return (c/size) *100
 
-#asks the user for rows, column, and number of colors.
+#main
 def main():
    
     calcAllBoards()
@@ -70,9 +63,7 @@ def main():
 def PIE_iterator(size, c):
     max=0
     while c<=size+1:
-      #  print(c-1)
         f =(union_size(size, c))
-     #   print(f)
         add_to_lists(size,c,f)
         c= c +1
         if f>max: 

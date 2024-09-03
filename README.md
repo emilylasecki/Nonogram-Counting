@@ -1,5 +1,7 @@
 # Nonograms Principle of Inclusion Exclusion
 
+This project has been completed. For results and a more thorough explanation of nonograms, please view Conclusions.pdf.
+
 Nonograms is a puzzle game involving m x n grids where the player must fill in tiles or leave them blank based on a list of clues. These clues dictate the order and number of tiles that must be filled in, but leaves out information on how big gaps of no color are. This principle of giving some information but not all of it makes for a fun game, but presents many mathematical questions. For a more detailed explanation on nonograms, I recommend https://webpbn.com/ as a first resource. Navigate to forums and find the post #99 by Jan Wolter for solving techniques. 
 
 For the use of explanations, I refer to a solvable grid as unique if there exists exactly one grid that fits the provided clues. A grid is not unique if the provided instructions can lead to more than one version of the grid. A grid is not solvable if the provided instructions do not produce any grids. I am focusing on the former two with this program.
@@ -12,5 +14,5 @@ This program counts all possible grids of each size with each color, ignoring un
 
 I plan on exporting this data into an Excel sheet to be referenced easier and turn it into a graph. Afterwards, I plan on creating a new repository where I create a nonogram game from the ground up. I will randomly generate codes for certain games and test multiple size grids with multiple colors to find on average how many boards are unique with each specification. I then will compare the ratio of possible boards with unique ones to establish how this trend changes with the grids being scaled up and/or number of colors being altered.
 
-I am using GitHub to track my progress and log issues. README.md serves as a general background of the project with conclusions from this project. For a more detailed log of progress read PROGRESSLOG.md. For final evaluations and project next-steps see Conclusions.pdf.
+I am using GitHub to track my progress and log issues. README.md serves as a general background of the project. For a more detailed log of progress read PROGRESSLOG.md. For final evaluations and project next-steps see Conclusions.pdf.
 
