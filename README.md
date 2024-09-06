@@ -16,3 +16,6 @@ I plan on exporting this data into an Excel sheet to be referenced easier and tu
 
 I am using GitHub to track my progress and log issues. README.md serves as a general background of the project. For a more detailed log of progress read PROGRESSLOG.md. For final evaluations and project next-steps see Conclusions.pdf.
 
+# To Run
+
+Make sure Python and Excel are installed on your machine. Clone this repository and run PIE.py. An Excel file with the name PIEoutput.xlsx will be created in the same folder as PIE.py. 
