@@ -2,7 +2,7 @@
 
 A nonogram is a logic puzzle on a grid, where based on “clues” in the form of numbers at the top of columns and the left of rows, the player must use a set of procedures to find what cells should be filled in with a specific color. Below is an example of a nonogram of a fish, where only one color is used.
 
-![image](https://github.com/user-attachments/assets/d9e61f3c-df71-43c1-8cd9-81f65310383b)
+<img src="https://github.com/user-attachments/assets/d9e61f3c-df71-43c1-8cd9-81f65310383b" style="width:40%; height:auto;">
 
 Some simple procedures to solve nonograms include line logic and edge logic. Line logic involves analyzing a single line, that is a column or row, and visualizing all possible ways that the line can be filled based on the clue. If in all scenarios a cell must be filled with a certain color, then the player can fill those cells. Information from this cell can provide clues as to how other lines can be filled. This is the basis of the game. 
 
@@ -10,7 +10,7 @@ Edge logic involved assessing a line that appears on the border of the grid. If 
 
 Nonograms of multiple colors function slightly differently than those of only one. If 2 different colors are in a clue, then there is no requirement for a blank cell to separate them. 
 
-![image](https://github.com/user-attachments/assets/dbb7367b-772e-4e31-b269-b30ae0a9b99c)
+<img src="https://github.com/user-attachments/assets/dbb7367b-772e-4e31-b269-b30ae0a9b99c" style="width:40%; height:auto;">
 
 Since blank cells provide the ambiguity of grids, more colors could potentially lead to less ambiguity.
 
@@ -20,11 +20,11 @@ More complex solving techniques exist, but present difficult games when they are
 
 A nonogram is considered solvable if there is any non-zero number of ways to fill in the grid given the specified clues. Grids aren’t solvable if the sum of the clues on top and bottom are not equal. Even if they are equal, this does not necessarily mean that the grid is solvable. See the image below.
 
-![image](https://github.com/user-attachments/assets/da89e7f9-0628-4354-b568-8c33567ccda8)
+<img src="https://github.com/user-attachments/assets/da89e7f9-0628-4354-b568-8c33567ccda8" style="width:40%; height:auto;">
 
 A nonogram is considered unique if there exists exactly one possible way to fill a grid based on the instructions. Many nonograms contain elementary switching components, or sections of clues that are ambiguous and no advanced solving technique can solve. To complete the puzzle, the player is required to guess at random. An example of a basic switching component is given below.
 
-![image](https://github.com/user-attachments/assets/415c76a5-bedb-4172-803d-6e6643fe0dc7)
+<img src="https://github.com/user-attachments/assets/415c76a5-bedb-4172-803d-6e6643fe0dc7" style="width:30%; height:auto;">
 
 This is widely viewed as a poorly designed puzzle.
 
