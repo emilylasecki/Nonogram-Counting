@@ -1,21 +1,49 @@
-# Nonograms Principle of Inclusion Exclusion
+# What is a nonogram?
 
-This project has been completed. For results and a more thorough explanation of nonograms, please view Conclusions.pdf.
+A nonogram is a logic puzzle on a grid, where based on “clues” in the form of numbers at the top of columns and the left of rows, the player must use a set of procedures to find what cells should be filled in with a specific color. Below is an example of a nonogram of a fish, where only one color is used.
 
-Nonograms is a puzzle game involving m x n grids where the player must fill in tiles or leave them blank based on a list of clues. These clues dictate the order and number of tiles that must be filled in, but leaves out information on how big gaps of no color are. This principle of giving some information but not all of it makes for a fun game, but presents many mathematical questions. For a more detailed explanation on nonograms, I recommend https://webpbn.com/ as a first resource. Navigate to forums and find the post #99 by Jan Wolter for solving techniques. 
+![image](https://github.com/user-attachments/assets/d9e61f3c-df71-43c1-8cd9-81f65310383b)
 
-For the use of explanations, I refer to a solvable grid as unique if there exists exactly one grid that fits the provided clues. A grid is not unique if the provided instructions can lead to more than one version of the grid. A grid is not solvable if the provided instructions do not produce any grids. I am focusing on the former two with this program.
+Some simple procedures to solve nonograms include line logic and edge logic. Line logic involves analyzing a single line, that is a column or row, and visualizing all possible ways that the line can be filled based on the clue. If in all scenarios a cell must be filled with a certain color, then the player can fill those cells. Information from this cell can provide clues as to how other lines can be filled. This is the basis of the game. 
 
-I noticed a simple pattern in the 2x2 grid that is not unique; it looks like a tiny checkerboard. There exist two out of sixteen combinations that are not uniquely solvable. This is refered to as a switching component, and these possibilities become more and more frequent as grids become larger. But what about 3x3 grids? That's a little harder to brute force, so that's where programming comes in. To start, I aim at counting possible grids and then expanding to this question of "uniqueness".
+Edge logic involved assessing a line that appears on the border of the grid. If the player can place color along an edge, then the player can identify information about the adjacent line.
 
-Another element of this game is color. If a puzzle has more than one color, those two colors don't need a blank gap to separate them. This alters some solving techniques from the simple single-color grid. It also presents more questions about uniqueness. To start, I want to calculate the number of possible grids of several colors and several sizes. I then want to take these findings and export them into an excel file to notice trends, specifically at how many colors do fewer grids become possible. This is the sole goal of this repository. I believe adding more colors makes grids more solvable, but I'm also curious about the ratio of possible grids to unique ones, which will require a little more programming.
+Nonograms of multiple colors function slightly differently than those of only one. If 2 different colors are in a clue, then there is no requirement for a blank cell to separate them. 
 
-This program counts all possible grids of each size with each color, ignoring uniqueness for the time being. A 2x2 grid with one color is as simple as taking each of the four squares and choosing to color it in or not. But we need to subtract the case where no colors are selected, which is 1 board this gives 2^4 -1 =15. The 2x2 grid with 2 colors can be calculated in a similar way. Let’s call the two colors blue and black. First, we calculate the total number of boards with no restrictions, 3^4 (3 colors, because we choose blue, black, or to leave the square alone). Now, 3^4 counts cases where blue or black may never be selected and only one color is present, so we subtract all cases where only blue and black are present. So, we subtract 2^4 twice or 2(2^4) or 32. This subtracts the blank board twice, so we need to add the blank board in once to have an accurate result. This leaves us with 3^4 – 2(2^4) +1 = 50. This is the Principle of Inclusion Exclusion.
+![image](https://github.com/user-attachments/assets/dbb7367b-772e-4e31-b269-b30ae0a9b99c)
 
-I plan on exporting this data into an Excel sheet to be referenced easier and turn it into a graph. Afterwards, I plan on creating a new repository where I create a nonogram game from the ground up. I will randomly generate codes for certain games and test multiple size grids with multiple colors to find on average how many boards are unique with each specification. I then will compare the ratio of possible boards with unique ones to establish how this trend changes with the grids being scaled up and/or number of colors being altered.
+Since blank cells provide the ambiguity of grids, more colors could potentially lead to less ambiguity.
 
-I am using GitHub to track my progress and log issues. README.md serves as a general background of the project. For a more detailed log of progress read PROGRESSLOG.md. For final evaluations and project next-steps see Conclusions.pdf.
+More complex solving techniques exist, but present difficult games when they are required. For the sake of this experiment, we declare these grids as poorly designed.
 
-# To Run
+# What do solvability and uniqueness mean?
 
-Make sure Python and Excel are installed on your machine. Clone this repository and run PIE.py. An Excel file with the name PIEoutput.xlsx will be created in the same folder as PIE.py. 
+A nonogram is considered solvable if there is any non-zero number of ways to fill in the grid given the specified clues. Grids aren’t solvable if the sum of the clues on top and bottom are not equal. Even if they are equal, this does not necessarily mean that the grid is solvable. See the image below.
+
+![image](https://github.com/user-attachments/assets/da89e7f9-0628-4354-b568-8c33567ccda8)
+
+A nonogram is considered unique if there exists exactly one possible way to fill a grid based on the instructions. Many nonograms contain elementary switching components, or sections of clues that are ambiguous and no advanced solving technique can solve. To complete the puzzle, the player is required to guess at random. An example of a basic switching component is given below.
+
+![image](https://github.com/user-attachments/assets/415c76a5-bedb-4172-803d-6e6643fe0dc7)
+
+This is widely viewed as a poorly designed puzzle.
+
+# What is the objective of this project?
+
+This project ultimately aims to uncover how many nonograms are unique considering size of grids and number of colors present. This repository applies the principle of inclusion-exclusion to count how many ways a grid can be filled. By definition all counted grids are solvable, however uniqueness is not accounted for. This code establishes an upper bound to how many unique grids are possible, however more advanced computation is necessary to find uniqueness.
+
+# Results?
+
+The data shows that around approximately 72% of all possible colors being present on the grid, the greatest number of grids are possible. 
+
+![image](https://github.com/user-attachments/assets/cd5d76d0-594f-40a8-8ded-9b0a876ec6e3)
+
+A modification of this program reveals the integer sequence of each iteration. Interestingly, this pattern is reflected in the On-Line Encyclopedia of Integer Sequences in A053440 and appears to form Worpitzky’s Triangle. 
+
+# Why nonograms?
+
+Nonograms present a visual example of combinatorial identities. Discrete tomography has potential applications to cybersecurity in how to encode pixels of an image. Also, because nonograms are fun!
+
+# What next?
+
+More detailed descriptions of findings can be found in conclusions.pdf. To uncover exactly how many grids are unique, I plan on creating a nonogram game that randomly generates a puzzle “key” that dictates what cells are to be filled each color. Then, the program will extract the clues based on the final puzzle and attempt to solve the grid. If the grid can be successfully solved by an algorithm that doesn’t require guessing, we flag the puzzle as unique. If it cannot be solved, we flag it as not unique. Because we start by passing a complete puzzle, we know all are solvable. Exact statistical methods to count these grids and how to handle puzzles that require advanced solving techniques are yet to be determined.
